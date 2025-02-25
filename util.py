@@ -34,10 +34,10 @@ def load_saved_artifacts():
     global __data_columns, __locations, __model
     print("Loading artifacts...")
     try:
-        # Use absolute paths to avoid issues on Render
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        columns_path = os.path.join(base_dir, "artifacts", "columns.json")
-        model_path = os.path.join(base_dir, "artifacts", "Real_Estate_Prediction.pickle")
+        # Dynamically find the base directory on Render
+        base_dir = os.path.join(os.getcwd(), "artifacts")
+        columns_path = os.path.join(base_dir, "columns.json")
+        model_path = os.path.join(base_dir, "Real_Estate_Prediction.pickle")
 
         with open(columns_path, 'r') as f:
             __data_columns = json.load(f)['data_columns']
