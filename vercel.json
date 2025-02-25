@@ -2,19 +2,15 @@
   "version": 2,
   "builds": [
     {
-      "src": "BH/server.py",
+      "src": "server.py",
       "use": "@vercel/python"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "BH/server.py"
+      "dest": "server.py"
     }
-  ],
-  "build": {
-    "env": {
-      "PYTHON_VERSION": "3.10"
-    }
-  }
+  ]
 }
+
