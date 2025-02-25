@@ -36,8 +36,9 @@ def load_saved_artifacts():
     try:
         # Dynamically find the base directory on Render
         base_dir = os.path.join(os.getcwd(), "artifacts")
-        columns_path = os.path.join(base_dir, "columns.json")
-        model_path = os.path.join(base_dir, "Real_Estate_Prediction.pickle")
+        columns_path = os.path.join("server", "artifacts", "columns.json")
+        model_path = os.path.join("server", "artifacts", "Real_Estate_Prediction.pickle")
+
 
         with open(columns_path, 'r') as f:
             __data_columns = json.load(f)['data_columns']
