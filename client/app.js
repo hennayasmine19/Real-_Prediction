@@ -1,21 +1,21 @@
 function getBathValue() {
     var uiBathrooms = document.getElementsByName("uiBathrooms");
-    for (var i = 0; i < uiBathrooms.length; i++) {
+    for (var i in uiBathrooms) {
         if (uiBathrooms[i].checked) {
-            return parseInt(uiBathrooms[i].value);
+            return parseInt(i) + 1;
         }
     }
-    return -1; // Invalid Value
+    return -1;
 }
 
 function getBHKValue() {
     var uiBHK = document.getElementsByName("uiBHK");
-    for (var i = 0; i < uiBHK.length; i++) {
+    for (var i in uiBHK) {
         if (uiBHK[i].checked) {
-            return parseInt(uiBHK[i].value);
+            return parseInt(i) + 1;
         }
     }
-    return -1; // Invalid Value
+    return -1;
 }
 
 function onClickedEstimatePrice() {
@@ -24,7 +24,7 @@ function onClickedEstimatePrice() {
     var bathrooms = getBathValue();
     var location = document.getElementById("uiLocations").value;
 
-    var url = "http://127.0.0.1:5000/predict_home_price"; // Correct Flask server endpoint
+    var url = "https://real-prediction.onrender.com/predict_home_price"; // Render deployed URL
 
     $.post(url, {
         total_sqft: parseFloat(sqft),
@@ -39,18 +39,22 @@ function onClickedEstimatePrice() {
 
 function onPageLoad() {
     console.log("document loaded");
-    var url = "http://127.0.0.1:5000/get_location_names"; // Use this if you are NOT using nginx which is first 7 tutorials
+    var url = "https://real-prediction.onrender.com/get_location_names"; // Render deployed URL
+
     $.get(url, function (data, status) {
-        console.log("got response for get_location_names request");
-        if (data) {
+        console.log("Got response for get_location_names request");
+        if (data && data.locations) {
             var locations = data.locations;
             var uiLocations = document.getElementById("uiLocations");
             $('#uiLocations').empty();
+            $('#uiLocations').append(new Option("Choose a Location", ""));
             for (var i = 0; i < locations.length; i++) {
                 var opt = new Option(locations[i]);
                 $('#uiLocations').append(opt);
             }
         }
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        console.error("Error fetching locations: ", textStatus, errorThrown);
     });
 }
 
