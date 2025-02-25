@@ -10,6 +10,7 @@ __model = None
 def get_estimated_price(location, sqft, bhk, bath):
     if __model is None:
         raise Exception("Model is not loaded. Please load the artifacts first.")
+    
     try:
         loc_index = next((i for i, loc in enumerate(__data_columns) if loc.lower() == location.lower()), -1)
     except:
@@ -21,6 +22,7 @@ def get_estimated_price(location, sqft, bhk, bath):
     x[2] = bhk
     if loc_index >= 0:
         x[loc_index] = 1
+
     return round(__model.predict([x])[0], 2)
 
 def get_location_names():
@@ -32,8 +34,10 @@ def load_saved_artifacts():
     global __data_columns, __locations, __model
     print("Loading artifacts...")
     try:
-        columns_path = os.path.join("server", "artifacts", "columns.json")
-        model_path = os.path.join("server", "artifacts", "Real_Estate_Prediction.pickle")
+        # Use absolute paths to avoid issues on Render
+        base_dir = os.path.dirname(os.path.abspath(__file__))
+        columns_path = os.path.join(base_dir, "artifacts", "columns.json")
+        model_path = os.path.join(base_dir, "artifacts", "Real_Estate_Prediction.pickle")
 
         with open(columns_path, 'r') as f:
             __data_columns = json.load(f)['data_columns']

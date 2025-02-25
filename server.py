@@ -4,6 +4,9 @@ import util as util
 
 app = Flask(__name__, static_folder='client', template_folder='client')
 
+# Load the model artifacts when the server starts
+util.load_saved_artifacts()
+
 @app.route('/')
 def home():
     return render_template('app.html')
@@ -26,15 +29,17 @@ def predict_home_price():
     except (KeyError, ValueError) as e:
         return jsonify({'error': 'Invalid input data', 'message': str(e)}), 400
 
-    response = jsonify({
-        'estimated_price': util.get_estimated_price(location, total_sqft, bhk, bath)
-    })
+    try:
+        estimated_price = util.get_estimated_price(location, total_sqft, bhk, bath)
+        response = jsonify({'estimated_price': estimated_price})
+    except Exception as e:
+        response = jsonify({'error': 'Model error', 'message': str(e)})
+
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
 
 if __name__ == "__main__":
     print("Starting Python Flask Server For Home Price Prediction...")
-    util.load_saved_artifacts()
-    port = int(os.environ.get("PORT", 5000))  # Use dynamic port from Vercel
+    port = int(os.environ.get("PORT", 5000))  # Use dynamic port for Render
     app.run(host='0.0.0.0', port=port, debug=True)
