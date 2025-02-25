@@ -59,7 +59,8 @@ h2 {
 	font-size: 18px;
 	margin-bottom: 8px;
 }
-.area{
+
+.area, .location, .submit, .result {
   font-family: "Roboto", sans-serif;
   outline: 0;
   background: #f2f2f2;
@@ -69,56 +70,25 @@ h2 {
   padding: 10px;
   box-sizing: border-box;
   font-size: 15px;
-  height: 35px;
+  height: 45px;
   border-radius: 5px;
 }
 
-.location{
-  font-family: "Roboto", sans-serif;
-  outline: 0;
-  background: #f2f2f2;
-  width: 76%;
-  border: 0;
-  margin: 0 0 10px;
-  padding: 10px;
-  box-sizing: border-box;
-  font-size: 15px;
-  height: 40px;
-  border-radius: 5px;
-}
-
-.submit{
+.submit {
   background: #a5dc86;
-  width: 76%;
-  border: 0;
   margin: 25px 0 10px;
-  box-sizing: border-box;
-  font-size: 15px;
-	height: 35px;
-	text-align: center;
-	border-radius: 5px;
+  text-align: center;
 }
 
-.result{
-		background: #dcd686;
-		width: 76%;
-		border: 0;
-		margin: 25px 0 10px;
-		box-sizing: border-box;
-		font-size: 15px;
-		height: 35px;
-		text-align: center;
+.result {
+  background: #dcd686;
+  text-align: center;
 }
 
 .img {
   background: url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
 	background-repeat: no-repeat;
-  background-size: auto;
-  background-size:100% 100%;
-  -webkit-filter: blur(5px);
-  -moz-filter: blur(5px);
-  -o-filter: blur(5px);
-  -ms-filter: blur(5px);
+  background-size: cover;
   filter: blur(15px);
   position: fixed;
   width: 100%;
@@ -130,4 +100,27 @@ h2 {
 
 body, html {
   height: 100%;
+}
+
+/* Responsive design for mobile screens */
+@media (max-width: 600px) {
+  .form {
+    max-width: 90%;
+    padding-left: 10px;
+  }
+
+  .area, .location, .submit, .result {
+    width: 90%;
+    font-size: 16px;
+    height: 50px;
+  }
+
+  h2 {
+    font-size: 16px;
+  }
+
+  .switch-field label {
+    font-size: 12px;
+    padding: 6px 12px;
+  }
 }
