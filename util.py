@@ -27,11 +27,13 @@ def load_saved_artifacts():
     global __data_columns, __locations, __model  # Add global to update variables
     print("Loading artifacts...")
     try:
-        with open("Real_Estate/BH/server/artifacts/columns.json", 'r') as f:
+        with open(r"server\artifacts\columns.json", 'r') as f:
+
             __data_columns = json.load(f)['data_columns']
             __locations = __data_columns[3:]
             print("Columns and locations loaded successfully.")
-        with open("Real_Estate/BH/server/artifacts/Real_Estate_Prediction.pickle", 'rb') as f:
+        with open("server/artifacts/Real_Estate_Prediction.pickle", 'rb') as f:
+
             __model = pickle.load(f)
             print("Model loaded successfully.")
     except FileNotFoundError as e:
